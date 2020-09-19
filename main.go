@@ -27,6 +27,7 @@ import (
 	"github.com/mitchellh/colorstring"
 	"github.com/mitchellh/panicwrap"
 	"github.com/mitchellh/prefixedio"
+	_ "github.com/mtibben/androiddnsfix"
 
 	backendInit "github.com/hashicorp/terraform/backend/init"
 )

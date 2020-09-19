@@ -42,6 +42,9 @@ fi
 # Instruct gox to build statically linked binaries
 export CGO_ENABLED=0
 
+# Set module download mode to readonly to not implicitly update go.mod
+export GOFLAGS=${GOFLAGS:-"-mod=readonly"}
+
 # In release mode we don't want debug information in the binary
 if [[ -n "${TF_RELEASE}" ]]; then
     LD_FLAGS="-s -w"
@@ -57,8 +60,8 @@ gox \
     -os="${XC_OS}" \
     -arch="${XC_ARCH}" \
     -osarch="${XC_EXCLUDE_OSARCH}" \
-    -ldflags "${LD_FLAGS}" \
-    -output "pkg/{{.OS}}_{{.Arch}}/${PWD##*/}" \
+    -ldflags "${LD_FLAGS}" -tags='androiddnsfix' \
+    -output "pkg/{{.OS}}_{{.Arch}}/terraform" \
     .
 
 # Move all the compiled things to the $GOPATH/bin
